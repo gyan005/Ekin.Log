@@ -37,7 +37,7 @@ namespace Ekin.Log
         {
             System.Data.DataTable table = new System.Data.DataTable();
             table.Clear();
-            table.Columns.Add(LogTypeLabel); 
+            table.Columns.Add(LogTypeLabel);
             table.Columns.Add(DateTimeLabel);
             table.Columns.Add(ClassLabel);
             table.Columns.Add(FunctionLabel);
@@ -46,7 +46,7 @@ namespace Ekin.Log
 
             if (IncludeErrors && Logs.HasErrors())
             {
-                foreach (var error in Logs.Errors)
+                foreach (Error error in Logs.Errors)
                 {
                     DataRow row = table.NewRow();
                     row[LogTypeLabel] = ErrorText;
@@ -61,7 +61,7 @@ namespace Ekin.Log
 
             if (IncludeWarnings && Logs.HasWarnings())
             {
-                foreach (var warning in Logs.Warnings)
+                foreach (Warning warning in Logs.Warnings)
                 {
                     DataRow row = table.NewRow();
                     row[LogTypeLabel] = WarningText;
@@ -76,7 +76,7 @@ namespace Ekin.Log
 
             if (IncludeAudits && Logs.HasAudits())
             {
-                foreach (var audit in Logs.Audits)
+                foreach (Audit audit in Logs.Audits)
                 {
                     DataRow row = table.NewRow();
                     row[LogTypeLabel] = AuditText;

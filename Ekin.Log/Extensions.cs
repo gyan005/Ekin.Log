@@ -42,7 +42,7 @@ namespace Ekin.Log
                     return content;
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 return null;
             }
@@ -55,13 +55,7 @@ namespace Ekin.Log
 
         public static void LoadFromJson(this object obj, string json, string EncryptionKey = "")
         {
-            try
-            {
-                JsonConvert.PopulateObject((!string.IsNullOrWhiteSpace(EncryptionKey) && !string.IsNullOrWhiteSpace(json)) ? json.Decrypt(EncryptionKey) : json, obj);
-            }
-            catch (Exception e)
-            {
-            }
+            JsonConvert.PopulateObject((!string.IsNullOrWhiteSpace(EncryptionKey) && !string.IsNullOrWhiteSpace(json)) ? json.Decrypt(EncryptionKey) : json, obj);
         }
 
         #endregion
@@ -90,7 +84,7 @@ namespace Ekin.Log
                 throw new Exception("Filename cannot be empty");
             obj.LoadFromJson(File.ReadAllText(file.FullName), EncryptionKey);
         }
-
+        
         public static void LoadFromFile(this object obj, string Filepath, string EncryptionKey = "")
         {
             if (string.IsNullOrWhiteSpace(Filepath))
@@ -108,8 +102,7 @@ namespace Ekin.Log
             {
                 WebException ex = Error as WebException;
                 return String.Format("[{0}] {1}", ex.StatusCode(), ex.Message);
-            }
-            else
+            } else
             {
                 return string.Empty;
             }

@@ -14,9 +14,9 @@ namespace Ekin.Log
 
         public string Id { get; set; }
 
-        public List<LogItem> Errors { get; set; }
-        public List<LogItem> Warnings { get; set; }
-        public List<LogItem> Audits { get; set; }
+        public List<ILogItem> Errors { get; set; }
+        public List<ILogItem> Warnings { get; set; }
+        public List<ILogItem> Audits { get; set; }
         public List<string> TimeAudit { get; set; }
 
         public DataTableHelper DataTable { get; set; }
@@ -28,7 +28,7 @@ namespace Ekin.Log
 
         #region Events
 
-        public delegate void ItemAdded(LogItem item);
+        public delegate void ItemAdded(ILogItem item);
         public event ItemAdded OnItemAdded;
 
         public delegate void FileSaveFailed(Exception ex);
@@ -44,9 +44,9 @@ namespace Ekin.Log
         public LogFactory()
         {
             Id = Guid.NewGuid().ToString("N");
-            Errors = new List<LogItem> { };
-            Warnings = new List<LogItem> { };
-            Audits = new List<LogItem> { };
+            Errors = new List<ILogItem> { };
+            Warnings = new List<ILogItem> { };
+            Audits = new List<ILogItem> { };
             TimeAudit = new List<string> { };
             AllowDuplicateEntries = true;
             DuplicateEntryComparisonType = StringComparison.InvariantCultureIgnoreCase;
@@ -99,12 +99,12 @@ namespace Ekin.Log
 
         public void AddError(string Class, string Function, Exception ex, object Data)
         {
-            AddError(Class, Function, ex.Message, string.Empty, Data);
+            AddError(Class, Function, ex.ToString(), string.Empty, Data);
         }
 
         public void AddError(string Class, string Function, Exception ex)
         {
-            AddError(Class, Function, ex.Message, string.Empty, null);
+            AddError(Class, Function, ex.ToString(), string.Empty, null);
         }
 
         public void AddWarning(string Class, string Function, string Message, string StackTrace, object Data)
@@ -301,10 +301,10 @@ namespace Ekin.Log
             }
         }
 
-        private void WriteEventLogEntries(string appName, EventLogEntryType entryType, List<LogItem> items, bool createOneEntryPerLogItem = false)
+        private void WriteEventLogEntries(string appName, EventLogEntryType entryType, List<ILogItem> items, bool createOneEntryPerLogItem = false)
         {
             string messages = string.Empty;
-            foreach (LogItem item in items)
+            foreach (ILogItem item in items)
             {
                 string message = string.Format("{0} {1}: {2}", item.Class, item.Function, item.Message);
                 if (createOneEntryPerLogItem)
@@ -346,7 +346,7 @@ namespace Ekin.Log
 
         #region Private Helpers
 
-        private bool AllowNewItem(List<LogItem> items, string Class, string Function, string Message, string StackTrace = "")
+        private bool AllowNewItem(List<ILogItem> items, string Class, string Function, string Message, string StackTrace = "")
         {
             return AllowDuplicateEntries || !items.Any(i => (string.IsNullOrWhiteSpace(Class) || Class.Equals(i.Class, DuplicateEntryComparisonType)) &&
                                                             (string.IsNullOrWhiteSpace(Function) || Function.Equals(i.Function, DuplicateEntryComparisonType)) &&
