@@ -18,5 +18,14 @@ namespace Ekin.Log
         public object Data { get; set; }
 
         public Warning() { }
+
+        public string FullDetails
+        {
+            get
+            {
+                return $"[{Class}.{Function}] {Message} ({StackTrace})";
+            }
+        }
+
     }
 }

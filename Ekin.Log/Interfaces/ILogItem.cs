@@ -14,6 +14,7 @@ namespace Ekin.Log.Interfaces
         string Function { get; set; }
         string Message { get; set; }
         string StackTrace { get; set; }
+        string FullDetails { get; }
         object Data { get; set; }
     }
 }

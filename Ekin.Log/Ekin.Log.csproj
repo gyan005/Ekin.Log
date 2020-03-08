@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.0.2</Version>
-    <AssemblyVersion>3.0.1.0</AssemblyVersion>
+    <Version>3.1.0</Version>
+    <AssemblyVersion>3.1.0.0</AssemblyVersion>
     <Authors>Ekin Caglar</Authors>
     <Company>Ekin Caglar</Company>
     <Description>Super light-weight and simple logger for .Net projects, supporting JSON serialisation and file + EventLog saving</Description>
-    <Copyright>Copyright © 2017-2019, Ekin Caglar</Copyright>
+    <Copyright>Copyright © 2017-2020, Ekin Caglar</Copyright>
     <PackageLicenseUrl>http://ekin.co/log_license</PackageLicenseUrl>
     <PackageProjectUrl>http://ekin.co/log</PackageProjectUrl>
     <PackageTags>log light light-weight ekin caglar</PackageTags>

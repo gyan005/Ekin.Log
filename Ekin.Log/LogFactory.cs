@@ -214,26 +214,26 @@ namespace Ekin.Log
             return HasErrors() || HasWarnings() || HasAudits();
         }
 
-        public string ToHtmlString()
+        public string ToHtmlString(bool includeFullDetails = false)
         {
             string result = string.Empty;
 
             if (Errors?.Count > 0)
             {
                 result += "<br><br>" + Environment.NewLine + "Errors:<br>" + Environment.NewLine;
-                result += string.Join("<br>" + Environment.NewLine, Errors.Select(i => i.Message).ToList());
+                result += string.Join("<br>" + Environment.NewLine, Errors.Select(i => includeFullDetails ? i.FullDetails : i.Message).ToList());
             }
 
             if (Warnings?.Count > 0)
             {
                 result += "<br><br>" + Environment.NewLine + "Warnings:<br>" + Environment.NewLine;
-                result += string.Join("<br>" + Environment.NewLine, Warnings.Select(i => i.Message).ToList());
+                result += string.Join("<br>" + Environment.NewLine, Warnings.Select(i => includeFullDetails ? i.FullDetails : i.Message).ToList());
             }
 
             if (Audits?.Count > 0)
             {
                 result += "<br><br>" + Environment.NewLine + "Audits:<br>" + Environment.NewLine;
-                result += string.Join("<br>" + Environment.NewLine, Audits.Select(i => i.Message).ToList());
+                result += string.Join("<br>" + Environment.NewLine, Audits.Select(i => includeFullDetails ? i.FullDetails : i.Message).ToList());
             }
 
             if (TimeAudit?.Count > 0)
